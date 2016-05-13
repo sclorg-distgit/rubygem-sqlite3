@@ -6,7 +6,7 @@
 Summary: Allows Ruby scripts to interface with a SQLite3 database
 Name: %{?scl_prefix}rubygem-%{gem_name}
 Version: 1.3.11
-Release: 3%{?dist}
+Release: 4%{?dist}
 Group: Development/Languages
 License: BSD
 URL: https://github.com/sparklemotion/sqlite3-ruby
@@ -64,6 +64,7 @@ rm -rf %{buildroot}%{gem_instdir}/ext/
 
 %check
 %{?scl:scl enable %{scl} - << \EOF}
+set -e
 pushd .%{gem_instdir}
 ruby -I$(dirs +1)%{gem_extdir_mri}:lib:test -e 'Dir.glob "./test/test_*.rb", &method(:require)'
 popd
@@ -93,6 +94,9 @@ popd
 %{gem_instdir}/test/
 
 %changelog
+* Wed Apr 06 2016 Pavel Valena <pvalena@redhat.com> - 1.3.11-4
+- Fix: build should fail on test failure
+
 * Tue Feb 23 2016 Pavel Valena <pvalena@redhat.com> - 1.3.11-3
 - Update to 1.3.11
 
